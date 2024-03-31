@@ -1,0 +1,12 @@
+I am doing a tarot card reading with a three card spread. In this spread, the meaning of the first card must be tied to the past. The second card is tied to my present. The third card will predict my future.
+
+Here are the cards that I got:
+1. |
+2. |
+3. |
+
+Based on your knowledge of individual card interpretations give me an interpretation separately for the meaning of each card in connection to the topic of my concern. Currently, I am concerned about |. Use the original interpretations of each card but push them to an extreme. Make up details and additional background about the issue at hand. Then give a 5 sentence summary of the reading. Finally, make a list of sentences of advice based on the reading. Give the most crazy and eyebrow raising advice possible.
+
+Return the output in unformatted json. Do not insert break lines and new line characters. Here is an example of the expected output:
+
+{"cards":[{"card":"The Five of Pentacles","interpretation":"This card represents your past ..."},{"card":"Death","interpretation":"This card represents your present ..."},{"card":"The Fool","interpretation":"This card represents your future ..."}],"advice":["This is the first part of advice","This is the second part of advice"],"summary":"Here is the summary of the whole reading"}
