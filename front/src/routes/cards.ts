@@ -1,0 +1,95 @@
+const tarot_deck = [
+    "The Fool",
+    "The Magician",
+    "The High Priestess",
+    "The Empress",
+    "The Emperor",
+    "The Hierophant",
+    "The Lovers",
+    "The Chariot",
+    "Strength",
+    "The Hermit",
+    "The Wheel of Fortune",
+    "Justice",
+    "The Hanged Man",
+    "Death",
+    "Temperance",
+    "The Devil",
+    "The Tower",
+    "The Star",
+    "The Moon",
+    "The Sun",
+    "Judgement",
+    "The World",
+    "Two of Cups",
+    "Three of Cups",
+    "Four of Cups",
+    "Five of Cups",
+    "Six of Cups",
+    "Seven of Cups",
+    "Eight of Cups",
+    "Nine of Cups",
+    "Ten of Cups",
+    "Ace of Cups",
+    "King of Cups",
+    "Knight of Cups",
+    "Page of Cups",
+    "Queen of Cups",
+    "Two of Pentacles",
+    "Three of Pentacles",
+    "Four of Pentacles",
+    "Five of Pentacles",
+    "Six of Pentacles",
+    "Seven of Pentacles",
+    "Eight of Pentacles",
+    "Nine of Pentacles",
+    "Ten of Pentacles",
+    "Ace of Pentacles",
+    "King of Pentacles",
+    "Knight of Pentacles",
+    "Page of Pentacles",
+    "Queen of Pentacles",
+    "Two of Swords",
+    "Three of Swords",
+    "Four of Swords",
+    "Five of Swords",
+    "Six of Swords",
+    "Seven of Swords",
+    "Eight of Swords",
+    "Nine of Swords",
+    "Ten of Swords",
+    "Ace of Swords",
+    "King of Swords",
+    "Knight of Swords",
+    "Page of Swords",
+    "Queen of Swords",
+    "Two of Wands",
+    "Three of Wands",
+    "Four of Wands",
+    "Five of Wands",
+    "Six of Wands",
+    "Seven of Wands",
+    "Eight of Wands",
+    "Nine of Wands",
+    "Ten of Wands",
+    "Ace of Wands",
+    "King of Wands",
+    "Knight of Wands",
+    "Page of Wands",
+    "Queen of Wands"
+]
+
+export function generate_cards(n: number): string[] {
+    const shuffled = tarot_deck.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, n);
+}
+
+export function get_index_of_card(card: string): number {
+    for (let i = 0; i < tarot_deck.length; i++) {
+        if (tarot_deck[i] === card) {
+            return i
+        }
+    }
+
+    return 0
+}

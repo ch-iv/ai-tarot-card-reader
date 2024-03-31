@@ -17,7 +17,7 @@ class CardInterpretation:
 class ReadingResult:
     cards: list[CardInterpretation]
     summary: str
-    advice: str
+    advice: list[str]
 
 
 class Gemini:
