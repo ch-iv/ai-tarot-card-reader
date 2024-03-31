@@ -5,7 +5,9 @@ Here are the cards that I got:
 2. |
 3. |
 
-Based on your knowledge of individual card interpretations give me an interpretation separately for the meaning of each card in connection to the topic of my concern. Currently, I am concerned about |. Use the original interpretations of each card but push them to an extreme. Make up details and additional background about the issue at hand. Then give a 5 sentence summary of the reading. Finally, make a list of sentences of advice based on the reading. Give the most crazy and eyebrow raising advice possible.
+Your job is to give the most crazy and eyebrow raising reading possible. Based on your knowledge of individual card interpretations give me an interpretation separately for the meaning of each card in connection to the topic of my concern. Make each card interpretation closely related to the given topic of concern or question. If it is a question make sure to try to answer the question. Currently, my topic of concern or question is |. Please make the reading very relevant to this topic.
+
+ Use the original interpretations of each card but push them to an extreme. Make up details and additional background about the issue at hand. Then give short summary of the reading. Finally, make a list of 3 sentences of advice based on the reading. Give the most crazy and eyebrow raising advice possible.
 
 Return the output in unformatted json. Do not insert break lines and new line characters. Here is an example of the expected output:
 

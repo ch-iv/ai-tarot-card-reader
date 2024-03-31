@@ -4,10 +4,23 @@ from deck import tarot_deck
 from prompt import create_prompt
 import random
 from result import parse_json
+from dataclasses import dataclass
+
+
+@dataclass
+class CardInterpretation:
+    card: str
+    interpretation: str
+
+
+@dataclass
+class ReadingResult:
+    cards: list[CardInterpretation]
+    summary: str
+    advice: str
 
 
 class Gemini:
-
     def __init__(self, streaming: bool = False):
         self.model = GenerativeModel("gemini-1.0-pro")
         self.streaming = streaming
@@ -53,22 +66,22 @@ def generate_random_cards(n: int) -> list[str]:
     return random.sample(tarot_deck, n)
 
 
-model = Gemini(streaming=False)
-print(generate_random_cards(3))
+if __name__ == "__main__":
+    model = Gemini(streaming=False)
 
-generated_response = model.invoke(
-    {
-        "input": create_prompt([*generate_random_cards(3), "finding a good place to have dinner"])
-    }
-)
+    generated_response = model.invoke(
+        {
+            "input": create_prompt([*generate_random_cards(3), "finding a good place to have dinner"])
+        }
+    )
 
-try:
-    if not hasattr(generated_response.candidates[0].content.parts[0], 'text'):
-        raise ValueError
+    try:
+        if not hasattr(generated_response.candidates[0].content.parts[0], 'text'):
+            raise ValueError
 
-    res = generated_response.candidates[0].content.parts[0].text
-    parsed = parse_json(res)
-    print(json.dumps(parsed, indent=2))
-except ValueError as e:
-    print("An error occured: ", e)
+        res = generated_response.candidates[0].content.parts[0].text
+        parsed = parse_json(res)
+        print(json.dumps(parsed, indent=2))
+    except ValueError as e:
+        print("An error occured: ", e)
 
