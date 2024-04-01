@@ -1,10 +1,16 @@
+from pathlib import Path
+
 from litestar import Litestar, get
+from litestar.template import TemplateConfig
+
 from main import Gemini, ReadingResult
 from prompt import create_prompt
 from result import parse_json
 import json
 from litestar.config.cors import CORSConfig
-from litestar.config.response_cache import CACHE_FOREVER
+from litestar.response import Template
+from litestar.contrib.jinja import JinjaTemplateEngine
+from litestar.static_files import create_static_files_router
 
 cors_config = CORSConfig(allow_origins=["*"])
 
@@ -12,11 +18,11 @@ model = Gemini(streaming=False)
 
 
 @get("/")
-async def index() -> str:
-    return "Hello, world!"
+async def index() -> Template:
+    return Template(template_name="index.html")
 
 
-@get("/generate", cached=CACHE_FOREVER)
+@get("/generate")
 async def get_book(card1: str, card2: str, card3: str, question: str) -> ReadingResult:
     # with open("res.txt", "r") as f:
     #     return f.read()
@@ -40,4 +46,19 @@ async def get_book(card1: str, card2: str, card3: str, question: str) -> Reading
         print("An error occured: ", e)
 
 
-app = Litestar([index, get_book], debug=True, cors_config=cors_config)
+app = Litestar(
+    route_handlers=[
+        create_static_files_router(path="_app/immutable/assets/", directories=["front/build/_app/immutable/assets"]),
+        create_static_files_router(path="_app/immutable/nodes/", directories=["front/build/_app/immutable/nodes"]),
+        create_static_files_router(path="_app/immutable/chunks/", directories=["front/build/_app/immutable/chunks"]),
+        create_static_files_router(path="_app/immutable/entryli/", directories=["front/build/_app/immutable/entry"]),
+        index,
+        get_book
+    ],
+    debug=True,
+    cors_config=cors_config,
+    template_config=TemplateConfig(
+        directory=Path("front/build"),
+        engine=JinjaTemplateEngine
+    ),
+)

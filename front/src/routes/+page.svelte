@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { useLazyImage as lazyImage } from 'svelte-lazy-image';
     import {generate_cards} from './cards.ts';
     import {get_index_of_card} from './cards.ts';
     import ball from '$lib/images/magic.gif'
@@ -232,25 +233,30 @@
 
 
 </script>
+<div class="hidden fixed">
+    <img class=" w-[200px] " src={ball}>
+    <img class=" w-[200px] " src={i1}>
+    <img class=" w-[200px] " src={i2}>
+    <img class=" w-[200px] " src={i3}>
+</div>
 <img src={cloud2} class="absolute w-[100vw] h-[100vh] pointer-events-none">
 
 <div class="flex w-[100vw] h-[100vh]">
     {#if stage === 0}
-        <div class="flex  gap-3 w-full m-auto items-center align-center justify-center z-20">
-
-            <input class="bg-zinc-900 w-2/3 text-4xl text-white rounded p-4 bg-transparent outline-white outline" placeholder="What are you thinking about?" bind:value={question} type="text">
-            <button on:click={processReadingRequest} class="bg-purple-800 text-white text-4xl rounded p-6 outline outline-white hover:bg-purple-400 duration-150">🔮</button>
-        </div>
+            <form  class="flex  gap-3 w-full m-auto items-center align-center justify-center z-20">
+                <input class="bg-zinc-900 w-2/3 text-4xl text-white rounded p-4 bg-transparent outline-white outline" placeholder="What are you thinking about?" bind:value={question} type="text">
+                <button type="submit" on:click={processReadingRequest} class="bg-purple-800 text-white text-4xl rounded p-6 outline outline-white hover:bg-purple-400 duration-150">🔮</button>
+            </form>
     {:else if stage === 1 }
 <!--        <div class="absolute m-auto bottom-0"><img src={ball}></div>-->
         <div class="flex relative flex-col gap-3 w-full m-auto items-center align-center justify-center z-20">
-            <img class=" w-[200px] " src={ball}>
+            <img use:lazyImage class=" w-[200px] " data-src={ball}>
             <h1 class="text-5xl text-white">{loading_messages[loading_message_idx]}</h1>
         </div>
     {:else if stage === 2}
         <div   class="flex flex-row gap-3 w-[75%] m-auto z-20">
             <div class="bg-zinc-900 rounded p-4 outline outline-white w-full h-full flex justify-center align-center items-center">
-                <img  class="m-auto" src={i1}>
+                <img  use:lazyImage class="m-auto" data-src={i1}>
             </div>
             <div class="rounded p-4 bg-zinc-900 outline outline-white text-white flex flex-col text-center items-center justify-center align-center ">
                 <h1 class="text-6xl pb-4">{reading_result.cards[0].card}</h1>
@@ -262,7 +268,7 @@
     {:else if stage === 3}
         <div class="flex flex-row gap-3 w-[75%] m-auto z-20">
             <div class="bg-zinc-900 rounded p-4 outline outline-white w-full h-full flex justify-center align-center items-center">
-                <img class="m-auto" src={i2}>
+                <img use:lazyImage class="m-auto" data-src={i2}>
             </div>
             <div class="rounded p-4 bg-zinc-900 outline outline-white text-white flex flex-col text-center items-center justify-center align-center ">
                 <h1 class="text-6xl pb-4">{reading_result.cards[1].card}</h1>
@@ -274,7 +280,7 @@
     {:else if stage === 4}
         <div class="flex flex-row gap-3 w-[75%] m-auto z-20">
             <div class="bg-zinc-900 rounded p-4 outline outline-white w-full h-full flex justify-center align-center items-center">
-                <img class="m-auto" src={i3}>
+                <img use:lazyImage class="m-auto" data-src={i3}>
             </div>
             <div class="rounded p-4 bg-zinc-900 outline outline-white text-white flex flex-col text-center items-center justify-center align-center ">
                 <h1 class="text-6xl pb-4">{reading_result.cards[2].card}</h1>
